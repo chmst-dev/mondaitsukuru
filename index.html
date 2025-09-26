@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 問題作成アシスト | 先生の「時間」を、生徒との「時間」へ。</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Academia -->
+    <!-- Application Structure Plan: 提供されたLP案に基づき、ユーザーを説得的な物語へと導く単一ページのウェブサイトを設計。上部に固定ナビゲーションを配置し、各セクション（ヒーロー、課題、選ばれる理由、対象者、利用の流れ、FAQ、CTA）へスムーズにスクロールさせる。この構造は、ユーザーが自身の課題を認識し、解決策を見つけ、行動を起こすというマーケティングファネルに沿っており、コンバージョンを最大化するために最適化されている。 -->
+    <!-- Visualization & Content Choices: ソースがデータレポートではなくLPであるため、「視覚化」はマーケティング要素に重点を置く。ヒーローセクションの背景画像（プレースホルダー）、機能紹介のアイコン、3ステップの利用フロー図（HTML/CSS）、インタラクティブなFAQアコーディオン（JS）などを採用。これらの選択は、情報の伝達を明確にし、ユーザーエンゲージメントを高めることを目的としている。Chart.jsやPlotly.jsはデータがないため使用しない。 -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #F9F7F5; /* Warm neutral background */
+            color: #333333;
+        }
+        .bg-primary { background-color: #3A5A40; } /* Calming Green */
+        .text-primary { color: #3A5A40; }
+        .border-primary { border-color: #3A5A40; }
+        .bg-accent { background-color: #A3B18A; } /* Lighter Green Accent */
+        .text-accent { color: #A3B18A; }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background-color: #3A5A40;
+            color: #FFFFFF;
+        }
+        .btn-primary:hover {
+            background-color: #304D35;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .btn-secondary {
+            background-color: #FFFFFF;
+            color: #3A5A40;
+            border: 2px solid #3A5A40;
+        }
+        .btn-secondary:hover {
+            background-color: #F0FAF3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            line-height: 1.3;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #555555;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #E5E7EB;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .faq-question {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .faq-question:hover {
+            background-color: #F0FAF3;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+        }
+        .faq-question.active + .faq-answer {
+             padding-top: 1rem;
+             padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold text-primary">AI 問題作成アシスト</div>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#features" class="text-gray-600 hover:text-primary transition">選ばれる理由</a>
+                <a href="#usecase" class="text-gray-600 hover:text-primary transition">利用シーン</a>
+                <a href="#faq" class="text-gray-600 hover:text-primary transition">FAQ</a>
+                <a href="#cta" class="btn btn-primary">無料で試してみる</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-gray-600 hover:text-primary focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+             <a href="#features" class="block py-2 text-gray-600 hover:text-primary transition">選ばれる理由</a>
+             <a href="#usecase" class="block py-2 text-gray-600 hover:text-primary transition">利用シーン</a>
+             <a href="#faq" class="block py-2 text-gray-600 hover:text-primary transition">FAQ</a>
+             <a href="#cta" class="block mt-2 w-full btn btn-primary">無料で試してみる</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-primary mb-4 leading-tight">先生の「時間」を、生徒との「時間」へ。</h1>
+                <p class="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto">問題作成、AIにおまかせ。もう、残業しない。</p>
+                <div class="max-w-xl mx-auto p-6 bg-green-50 rounded-lg shadow-inner border border-green-200">
+                    <p class="text-base text-gray-800 leading-relaxed">
+                        【AI 問題作成アシスト】は、キーワードを入れるだけで小テストや課題プリントを**3分で自動作成**。先生の圧倒的な業務負担を軽減し、子どもたちと向き合う本来の時間を創出します。
+                    </p>
+                </div>
+                <div class="mt-10 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#cta" class="btn btn-primary w-full sm:w-auto">無料で試してみる（30秒登録）</a>
+                    <a href="#" class="btn btn-secondary w-full sm:w-auto">資料請求はこちら</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problems Section -->
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-12">
+                     <h2 class="section-title">先生、こんなお悩みを<br class="sm:hidden">抱えていませんか？</h2>
+                     <div class="w-24 h-1 bg-accent mx-auto mt-4 rounded"></div>
+                 </div>
+                <div class="max-w-3xl mx-auto">
+                    <div class="bg-white rounded-lg p-8 md:p-12 shadow-lg border border-gray-200">
+                        <ul class="space-y-6">
+                            <li class="flex items-start">
+                                <span class="text-2xl text-primary mr-4">✅</span>
+                                <p class="text-lg text-gray-700"><strong>毎日の小テスト作成</strong>に追われ、授業準備が後回しになっている…</p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl text-primary mr-4">✅</span>
+                                <p class="text-lg text-gray-700"><strong>定期テスト前</strong>は、深夜までの残業か持ち帰り仕事が当たり前…</p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl text-primary mr-4">✅</span>
+                                <p class="text-lg text-gray-700">生徒一人ひとりの<strong>習熟度に合った問題</strong>を探したり、作ったりする時間がない…</p>
+                            </li>
+                             <li class="flex items-start">
+                                <span class="text-2xl text-primary mr-4">✅</span>
+                                <p class="text-lg text-gray-700">本当はもっと<strong>生徒指導や教材研究に時間をかけたい</strong>のに…</p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl text-primary mr-4">✅</span>
+                                <p class="text-lg text-gray-700"><strong>著作権</strong>が気になり、市販の問題集を気軽にコピーできない…</p>
+                            </li>
+                        </ul>
+                        <p class="text-center text-xl font-bold text-primary mt-10">その悩み、AIが解決します。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">AI問題作成アシストが選ばれる3つの理由</h2>
+                <p class="section-subtitle">多忙な先生方の「あったらいいな」を形にしました。</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card text-center">
+                        <div class="mx-auto w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
+                            <span class="text-4xl">⏱️</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">1. 圧倒的な時間対効果</h3>
+                        <p class="text-gray-600">キーワードや教科書の範囲を入れるだけで、AIが問題のたたき台を瞬時に生成。これまで数時間かかっていた作業が、わずか数分で完了します。</p>
+                    </div>
+                    <div class="card text-center">
+                        <div class="mx-auto w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
+                            <span class="text-4xl">👆</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">2. 誰でも使える、直感的な操作性</h3>
+                        <p class="text-gray-600">ITが苦手な先生でも大丈夫。マニュアル不要で、ログインして、入力して、ボタンを押すだけ。明日からすぐに使えるシンプルさを追求しました。</p>
+                    </div>
+                    <div class="card text-center">
+                        <div class="mx-auto w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
+                            <span class="text-4xl">📄</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">3. 授業ですぐに使える品質</h3>
+                        <p class="text-gray-600">正答と「なぜそうなるか」の簡易解説まで自動生成。さらにWord形式で出力できるので、先生自身で自由に編集・調整して、オリジナルのプリントが簡単に完成します。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usecase Section -->
+        <section id="usecase" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">多様な教育現場のニーズに対応</h2>
+                <div class="grid lg:grid-cols-2 gap-8 mt-12 max-w-6xl mx-auto">
+                    <div class="card flex flex-col">
+                        <div class="text-center mb-6">
+                            <span class="text-5xl">🏫</span>
+                            <h3 class="text-2xl font-bold mt-4 text-primary">学校の先生へ</h3>
+                        </div>
+                        <p class="text-xl font-semibold text-center text-gray-800 mb-6">「生まれた時間で、生徒指導や<br>教材研究をもっと深く。」</p>
+                        <p class="text-gray-600 flex-grow">日々の小テスト業務から解放され、定期テスト作成の負担も大幅に軽減。GIGAスクール構想で導入されたタブレット学習用の教材作りも効率化できます。学習指導要領を意識した問題生成で、安心してご利用いただけます。</p>
+                    </div>
+                    <div class="card flex flex-col">
+                        <div class="text-center mb-6">
+                            <span class="text-5xl">💡</span>
+                            <h3 class="text-2xl font-bold mt-4 text-primary">塾の先生・教室長へ</h3>
+                        </div>
+                        <p class="text-xl font-semibold text-center text-gray-800 mb-6">「個別最適化を加速させ、<br>退塾率低下と合格実績向上へ。」</p>
+                        <p class="text-gray-600 flex-grow">生徒一人ひとりの志望校や苦手単元に合わせた個別演習プリントを効率的に作成。過去問対策の演習量を増やし、生徒の得点力を直接的に引き上げます。著作権を気にせず、質の高いオリジナル問題で競合との差別化を図れます。</p>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                     <a href="#cta" class="btn btn-primary text-lg">今すぐ無料で体験する</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Steps Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">ご利用の流れはかんたん3ステップ</h2>
+                <div class="relative mt-12 max-w-4xl mx-auto">
+                    <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-accent hidden md:block" aria-hidden="true"></div>
+                    <div class="md:grid md:grid-cols-2 md:gap-x-12 space-y-12 md:space-y-0">
+                        <!-- Step 1 -->
+                        <div class="md:text-right">
+                             <div class="md:inline-block p-6 bg-white rounded-lg shadow-md border">
+                                <div class="text-primary text-2xl font-bold mb-2">Step 1</div>
+                                <h4 class="text-xl font-semibold mb-2">無料トライアル登録</h4>
+                                <p class="text-gray-600">フォームに必要事項を記入し、30秒で登録完了。</p>
+                             </div>
+                        </div>
+                        <div></div>
+                        <!-- Step 2 -->
+                        <div></div>
+                        <div class="md:text-left">
+                            <div class="md:inline-block p-6 bg-white rounded-lg shadow-md border">
+                                <div class="text-primary text-2xl font-bold mb-2">Step 2</div>
+                                <h4 class="text-xl font-semibold mb-2">問題を作成</h4>
+                                <p class="text-gray-600">教科や単元、キーワードなどを入力し、ボタンをクリック。</p>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                         <div class="md:text-right">
+                            <div class="md:inline-block p-6 bg-white rounded-lg shadow-md border">
+                                <div class="text-primary text-2xl font-bold mb-2">Step 3</div>
+                                <h4 class="text-xl font-semibold mb-2">ダウンロードして活用</h4>
+                                <p class="text-gray-600">Word形式でダウンロード。自由に編集して、すぐに授業で活用！</p>
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">よくあるご質問（FAQ）</h2>
+                <div class="max-w-3xl mx-auto mt-12 bg-white rounded-lg shadow-lg p-6 md:p-8 border">
+                    <div class="space-y-4">
+                        <div class="border-b pb-4">
+                            <div class="faq-question flex justify-between items-center p-4 rounded-md">
+                                <h4 class="font-semibold text-lg">料金はかかりますか？</h4>
+                                <span class="transform transition-transform duration-300">▼</span>
+                            </div>
+                            <div class="faq-answer px-4 text-gray-700">
+                                <p>無料トライアル期間中は一切費用はかかりません。すべての機能を安心してお試しいただけます。トライアル終了後、ご継続を希望される方向けに正式なプランをご案内します。</p>
+                            </div>
+                        </div>
+                        <div class="border-b pb-4">
+                            <div class="faq-question flex justify-between items-center p-4 rounded-md">
+                                <h4 class="font-semibold text-lg">パソコンが苦手でも使えますか？</h4>
+                                <span class="transform transition-transform duration-300">▼</span>
+                            </div>
+                            <div class="faq-answer px-4 text-gray-700">
+                                <p>はい、もちろんです。どなたでも直感的に使えるシンプルな画面設計を心がけています。特別なITスキルは一切不要です。</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="faq-question flex justify-between items-center p-4 rounded-md">
+                                <h4 class="font-semibold text-lg">対応教科は？</h4>
+                                <span class="transform transition-transform duration-300">▼</span>
+                            </div>
+                            <div class="faq-answer px-4 text-gray-700">
+                                <p>現在、中学校の主要5教科（国語、社会、数学、理科、英語）に対応しています。小学校や高校、その他科目についても順次対応を拡大していく予定です。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="cta" class="py-20 bg-primary">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">さあ、先生の働き方を変える、<br>最初のステップを。</h2>
+                <p class="text-lg text-green-100 max-w-3xl mx-auto mb-8">問題作成の負担をAIで軽くし、子どもたちと向き合う、あなたらしい教育の時間を創造しませんか？<br>まずは無料トライアルで、その効果を実感してください。</p>
+                <a href="#" class="btn bg-white text-primary text-lg hover:bg-gray-100 w-full sm:w-auto">
+                    30秒で完了！無料トライアルに登録する
+                </a>
+                <p class="text-green-200 mt-4 text-sm">（クレジットカード登録は不要です）</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="hover:text-accent">運営会社</a>
+                <a href="#" class="hover:text-accent">利用規約</a>
+                <a href="#" class="hover:text-accent">プライバシーポリシー</a>
+                <a href="#" class="hover:text-accent">お問い合わせ</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2025 AI 問題作成アシスト. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // FAQ Accordion
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('span');
+                    
+                    if (question.classList.contains('active')) {
+                        question.classList.remove('active');
+                        answer.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        // Close other open questions
+                        faqQuestions.forEach(q => {
+                            if (q.classList.contains('active')) {
+                                q.classList.remove('active');
+                                q.nextElementSibling.style.maxHeight = null;
+                                q.querySelector('span').style.transform = 'rotate(0deg)';
+                            }
+                        });
+                        
+                        question.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            // Smooth Scrolling for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Close mobile menu on click
+                        if (!mobileMenu.classList.contains('hidden')) {
+                             mobileMenu.classList.add('hidden');
+                        }
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Header shadow on scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 10) {
+                    header.classList.add('shadow-lg');
+                } else {
+                    header.classList.remove('shadow-lg');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -7,8 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Calm Academia -->
-    <!-- Application Structure Plan: 提供されたLP案に基づき、ユーザーを説得的な物語へと導く単一ページのウェブサイトを設計。上部に固定ナビゲーションを配置し、各セクション（ヒーロー、課題、選ばれる理由、対象者、利用の流れ、FAQ、CTA）へスムーズにスクロールさせる。この構造は、ユーザーが自身の課題を認識し、解決策を見つけ、行動を起こすというマーケティングファネルに沿っており、コンバージョンを最大化するために最適化されている。 -->
-    <!-- Visualization & Content Choices: ソースがデータレポートではなくLPであるため、「視覚化」はマーケティング要素に重点を置く。ヒーローセクションの背景画像（プレースホルダー）、機能紹介のアイコン、3ステップの利用フロー図（HTML/CSS）、インタラクティブなFAQアコーディオン（JS）などを採用。これらの選択は、情報の伝達を明確にし、ユーザーエンゲージメントを高めることを目的としている。Chart.jsやPlotly.jsはデータがないため使用しない。 -->
+    <!-- Application Structure Plan: 提供されたLP案とフィードバックに基づき、ユーザーを説得的な物語へと導く単一ページのウェブサイトを設計。上部に固定ナビゲーションを配置し、各セクション（ヒーロー、課題、Before/After、選ばれる理由、対象者、利用の流れ、料金、FAQ、CTA）へスムーズにスクロールさせる。この構造は、ユーザーが自身の課題を認識し、「スケールできない」という本質的な課題への解決策として製品を理解し、行動を起こすというマーケティングファネルに沿っており、コンバージョンを最大化するために最適化されている。 -->
+    <!-- Visualization & Content Choices: ソースがデータレポートではなくLPであるため、「視覚化」はマーケティング要素に重点を置く。ヒーローセクション、機能紹介のアイコン、Before/Afterの対比図、3ステップの利用フロー図（HTML/CSS）、料金プラン表、インタラクティブなFAQアコーディオン（JS）などを採用。これらの選択は、情報の伝達を明確にし、ユーザーエンゲージメントを高めることを目的としている。Chart.jsやPlotly.jsはデータがないため使用しない。 -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -101,6 +101,7 @@
             <div class="hidden md:flex space-x-8 items-center">
                 <a href="#features" class="text-gray-600 hover:text-primary transition">選ばれる理由</a>
                 <a href="#usecase" class="text-gray-600 hover:text-primary transition">利用シーン</a>
+                <a href="#pricing" class="text-gray-600 hover:text-primary transition">料金プラン</a>
                 <a href="#faq" class="text-gray-600 hover:text-primary transition">FAQ</a>
                 <a href="#cta" class="btn btn-primary">無料で試してみる</a>
             </div>
@@ -113,6 +114,7 @@
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
              <a href="#features" class="block py-2 text-gray-600 hover:text-primary transition">選ばれる理由</a>
              <a href="#usecase" class="block py-2 text-gray-600 hover:text-primary transition">利用シーン</a>
+             <a href="#pricing" class="block py-2 text-gray-600 hover:text-primary transition">料金プラン</a>
              <a href="#faq" class="block py-2 text-gray-600 hover:text-primary transition">FAQ</a>
              <a href="#cta" class="block mt-2 w-full btn btn-primary">無料で試してみる</a>
         </div>
@@ -122,11 +124,11 @@
         <!-- Hero Section -->
         <section class="py-20 md:py-32 bg-white">
             <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold text-primary mb-4 leading-tight">先生の「時間」を、生徒との「時間」へ。</h1>
-                <p class="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto">問題作成、AIにおまかせ。もう、残業しない。</p>
-                <div class="max-w-xl mx-auto p-6 bg-green-50 rounded-lg shadow-inner border border-green-200">
+                <h1 class="text-4xl md:text-6xl font-bold text-primary mb-4 leading-tight">先生の「こだわり」を、<br>もっと多くの生徒へ。</h1>
+                <p class="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto">AIが、先生の教育実践をスケールアップする最高の相棒になります。</p>
+                <div class="max-w-2xl mx-auto p-6 bg-green-50 rounded-lg shadow-inner border border-green-200">
                     <p class="text-base text-gray-800 leading-relaxed">
-                        【AI 問題作成アシスト】は、キーワードを入れるだけで小テストや課題プリントを**3分で自動作成**。先生の圧倒的な業務負担を軽減し、子どもたちと向き合う本来の時間を創出します。
+                        【AI 問題作成アシスト】は、先生が作る**「良き問題」を8割品質でAIがアシスト**。最終的な仕上げは先生自身が行うことで、教育の質を損なうことなく、作成時間を劇的に短縮。**理想の教育を、クラス全員に、もっと頻繁に**届けることを可能にします。
                     </p>
                 </div>
                 <div class="mt-10 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
@@ -140,34 +142,51 @@
         <section class="py-20">
             <div class="container mx-auto px-6">
                  <div class="text-center mb-12">
-                     <h2 class="section-title">先生、こんなお悩みを<br class="sm:hidden">抱えていませんか？</h2>
-                     <div class="w-24 h-1 bg-accent mx-auto mt-4 rounded"></div>
+                     <h2 class="section-title">その「やりがい」、<br class="sm:hidden">限界を感じていませんか？</h2>
+                     <p class="section-subtitle">「子供のため」と頑張る先生ほど、見えない壁に突き当たっています。</p>
                  </div>
                 <div class="max-w-3xl mx-auto">
                     <div class="bg-white rounded-lg p-8 md:p-12 shadow-lg border border-gray-200">
                         <ul class="space-y-6">
                             <li class="flex items-start">
-                                <span class="text-2xl text-primary mr-4">✅</span>
-                                <p class="text-lg text-gray-700"><strong>毎日の小テスト作成</strong>に追われ、授業準備が後回しになっている…</p>
+                                <span class="text-2xl text-primary mr-4">💡</span>
+                                <p class="text-lg text-gray-700">本当は、**もっと頻繁に小テスト**をして、一人ひとりの理解度を確かめたい…。</p>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-2xl text-primary mr-4">✅</span>
-                                <p class="text-lg text-gray-700"><strong>定期テスト前</strong>は、深夜までの残業か持ち帰り仕事が当たり前…</p>
+                                <span class="text-2xl text-primary mr-4">💡</span>
+                                <p class="text-lg text-gray-700">本当は、**クラス全員に個別最適化された課題**を出して、学力を伸ばしてあげたい…。</p>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-2xl text-primary mr-4">✅</span>
-                                <p class="text-lg text-gray-700">生徒一人ひとりの<strong>習熟度に合った問題</strong>を探したり、作ったりする時間がない…</p>
-                            </li>
-                             <li class="flex items-start">
-                                <span class="text-2xl text-primary mr-4">✅</span>
-                                <p class="text-lg text-gray-700">本当はもっと<strong>生徒指導や教材研究に時間をかけたい</strong>のに…</p>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-2xl text-primary mr-4">✅</span>
-                                <p class="text-lg text-gray-700"><strong>著作権</strong>が気になり、市販の問題集を気軽にコピーできない…</p>
+                                <span class="text-2xl text-primary mr-4">💡</span>
+                                <p class="text-lg text-gray-700">本当は、**思考力を問う良問**をもっとたくさん作って、生徒の知的好奇心を刺激したい…。</p>
                             </li>
                         </ul>
-                        <p class="text-center text-xl font-bold text-primary mt-10">その悩み、AIが解決します。</p>
+                        <p class="text-center text-xl font-bold text-gray-800 mt-10">その「理想」と「現実」のギャップが、<br class="sm:hidden">一番の課題ではありませんか？</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Before/After Section -->
+        <section class="py-20 bg-green-50">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">AIアシストで、教育はもっと自由に。</h2>
+                <div class="mt-12 max-w-4xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+                    <!-- Before -->
+                    <div class="p-8 bg-red-50 rounded-lg border border-red-200 h-full">
+                        <h3 class="text-2xl font-bold text-center text-red-800 mb-6">Before：先生だけの力では…</h3>
+                        <ul class="space-y-4 text-gray-700">
+                            <li class="flex items-start"><span class="text-2xl mr-3">⚠️</span> **時間の限界**<br>理想はあるが、物理的に時間が足りず、一部の生徒への対応や画一的な課題になりがち。</li>
+                            <li class="flex items-start"><span class="text-2xl mr-3">⚠️</span> **体力の限界**<br>深夜までの作業で疲弊し、授業の質や生徒と向き合う気力が低下。</li>
+                        </ul>
+                    </div>
+                    <!-- After -->
+                    <div class="p-8 bg-white rounded-lg border border-green-200 shadow-xl transform md:scale-110 h-full">
+                        <h3 class="text-2xl font-bold text-center text-primary mb-6">After：AIとの協働で！</h3>
+                        <ul class="space-y-4 text-gray-700">
+                             <li class="flex items-start"><span class="text-2xl mr-3">🚀</span> **教育をスケールアップ**<br>質の高い問題を量産し、個別最適化された指導をクラス全員に展開可能に。</li>
+                            <li class="flex items-start"><span class="text-2xl mr-3">✨</span> **専門業務へ集中**<br>単純作業をAIに任せ、先生は最終チェックや、より創造的な業務に注力。</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -176,15 +195,15 @@
         <!-- Features Section -->
         <section id="features" class="py-20 bg-white">
             <div class="container mx-auto px-6">
-                <h2 class="section-title">AI問題作成アシストが選ばれる3つの理由</h2>
-                <p class="section-subtitle">多忙な先生方の「あったらいいな」を形にしました。</p>
+                <h2 class="section-title">先生の専門性を最大限に活かす3つの特長</h2>
+                <p class="section-subtitle">AIはあくまでアシスタント。主役は、先生です。</p>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="card text-center">
                         <div class="mx-auto w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
-                            <span class="text-4xl">⏱️</span>
+                            <span class="text-4xl">🤖🤝</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-4">1. 圧倒的な時間対効果</h3>
-                        <p class="text-gray-600">キーワードや教科書の範囲を入れるだけで、AIが問題のたたき台を瞬時に生成。これまで数時間かかっていた作業が、わずか数分で完了します。</p>
+                        <h3 class="text-xl font-bold mb-4">1. AIが「8割」をアシスト</h3>
+                        <p class="text-gray-600">最も時間のかかる「ゼロからイチ」をAIが担当。先生は最も重要な「最後の2割」の仕上げに集中でき、専門性を存分に発揮できます。</p>
                     </div>
                     <div class="card text-center">
                         <div class="mx-auto w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
@@ -195,10 +214,10 @@
                     </div>
                     <div class="card text-center">
                         <div class="mx-auto w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
-                            <span class="text-4xl">📄</span>
+                            <span class="text-4xl">✍️</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-4">3. 授業ですぐに使える品質</h3>
-                        <p class="text-gray-600">正答と「なぜそうなるか」の簡易解説まで自動生成。さらにWord形式で出力できるので、先生自身で自由に編集・調整して、オリジナルのプリントが簡単に完成します。</p>
+                        <h3 class="text-xl font-bold mb-4">3. こだわりを反映できるWord出力</h3>
+                        <p class="text-gray-600">使い慣れたWord形式で出力可能。先生自身の言葉で言い回しを修正したり、図を追加したりと、思い通りのプリントが簡単に完成します。</p>
                     </div>
                 </div>
             </div>
@@ -207,27 +226,24 @@
         <!-- Usecase Section -->
         <section id="usecase" class="py-20">
             <div class="container mx-auto px-6">
-                <h2 class="section-title">多様な教育現場のニーズに対応</h2>
+                <h2 class="section-title">多様な教育現場の「もっと」に応えます</h2>
                 <div class="grid lg:grid-cols-2 gap-8 mt-12 max-w-6xl mx-auto">
                     <div class="card flex flex-col">
                         <div class="text-center mb-6">
                             <span class="text-5xl">🏫</span>
                             <h3 class="text-2xl font-bold mt-4 text-primary">学校の先生へ</h3>
                         </div>
-                        <p class="text-xl font-semibold text-center text-gray-800 mb-6">「生まれた時間で、生徒指導や<br>教材研究をもっと深く。」</p>
-                        <p class="text-gray-600 flex-grow">日々の小テスト業務から解放され、定期テスト作成の負担も大幅に軽減。GIGAスクール構想で導入されたタブレット学習用の教材作りも効率化できます。学習指導要領を意識した問題生成で、安心してご利用いただけます。</p>
+                        <p class="text-xl font-semibold text-center text-gray-800 mb-6">「日々の小テストの『質と量』を向上させ、<br>確かな学力定着を実現したい。」</p>
+                        <p class="text-gray-600 flex-grow">毎日の確認テストや、GIGA端末でのドリル課題を瞬時に作成。生まれた時間で、生徒指導や教材研究といった、先生にしかできない業務に、もっと深く向き合えます。</p>
                     </div>
                     <div class="card flex flex-col">
                         <div class="text-center mb-6">
                             <span class="text-5xl">💡</span>
                             <h3 class="text-2xl font-bold mt-4 text-primary">塾の先生・教室長へ</h3>
                         </div>
-                        <p class="text-xl font-semibold text-center text-gray-800 mb-6">「個別最適化を加速させ、<br>退塾率低下と合格実績向上へ。」</p>
-                        <p class="text-gray-600 flex-grow">生徒一人ひとりの志望校や苦手単元に合わせた個別演習プリントを効率的に作成。過去問対策の演習量を増やし、生徒の得点力を直接的に引き上げます。著作権を気にせず、質の高いオリジナル問題で競合との差別化を図れます。</p>
+                        <p class="text-xl font-semibold text-center text-gray-800 mb-6">「生徒一人ひとりに合わせた『演習量』を<br>圧倒的に増やし、合格実績を高めたい。」</p>
+                        <p class="text-gray-600 flex-grow">志望校や苦手単元に合わせた個別演習プリントを必要なだけ作成。質の高い演習量を確保し、生徒の得点力向上と保護者の満足度に直結させます。</p>
                     </div>
-                </div>
-                <div class="text-center mt-12">
-                     <a href="#cta" class="btn btn-primary text-lg">今すぐ無料で体験する</a>
                 </div>
             </div>
         </section>
@@ -253,16 +269,16 @@
                         <div class="md:text-left">
                             <div class="md:inline-block p-6 bg-white rounded-lg shadow-md border">
                                 <div class="text-primary text-2xl font-bold mb-2">Step 2</div>
-                                <h4 class="text-xl font-semibold mb-2">問題を作成</h4>
-                                <p class="text-gray-600">教科や単元、キーワードなどを入力し、ボタンをクリック。</p>
+                                <h4 class="text-xl font-semibold mb-2">AIにたたき台作成を依頼</h4>
+                                <p class="text-gray-600">単元やキーワードを入力し、AIが8割の品質で問題を生成。</p>
                             </div>
                         </div>
                         <!-- Step 3 -->
                          <div class="md:text-right">
                             <div class="md:inline-block p-6 bg-white rounded-lg shadow-md border">
                                 <div class="text-primary text-2xl font-bold mb-2">Step 3</div>
-                                <h4 class="text-xl font-semibold mb-2">ダウンロードして活用</h4>
-                                <p class="text-gray-600">Word形式でダウンロード。自由に編集して、すぐに授業で活用！</p>
+                                <h4 class="text-xl font-semibold mb-2">先生が仕上げて完成</h4>
+                                <p class="text-gray-600">Wordでダウンロード。先生のこだわりを加えて、完成！</p>
                             </div>
                         </div>
                         <div></div>
@@ -271,19 +287,58 @@
             </div>
         </section>
 
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">料金プラン</h2>
+                <p class="section-subtitle">まずは無料でお試しください。先生の働き方が変わる体験を。</p>
+                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                    <div class="card p-8 flex flex-col">
+                        <h3 class="text-2xl font-bold text-center mb-2">無料トライアル</h3>
+                        <p class="text-center text-gray-600 mb-6">まずは、すべての機能をお試しください</p>
+                        <div class="text-center my-6">
+                            <span class="text-5xl font-bold">¥0</span>
+                            <span class="text-gray-600">/ 14日間</span>
+                        </div>
+                        <ul class="space-y-4 text-gray-700 mb-8 flex-grow">
+                            <li class="flex items-center"><span class="text-green-500 mr-3">✔</span> 全ての基本機能が利用可能</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-3">✔</span> 問題作成回数の上限なし</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-3">✔</span> クレジットカード登録不要</li>
+                        </ul>
+                        <a href="#cta" class="w-full btn btn-secondary">今すぐ無料で試す</a>
+                    </div>
+                    <div class="card p-8 flex flex-col border-2 border-primary transform scale-105">
+                         <p class="text-center font-semibold bg-primary text-white py-1 px-4 rounded-full w-fit mx-auto -mt-12 mb-4">おすすめ</p>
+                        <h3 class="text-2xl font-bold text-center mb-2">教員・校舎向けプラン</h3>
+                         <p class="text-center text-gray-600 mb-6">本格的な業務改善と教育の質向上へ</p>
+                        <div class="text-center my-6">
+                           <span class="text-2xl font-bold">お問い合わせください</span>
+                        </div>
+                        <ul class="space-y-4 text-gray-700 mb-8 flex-grow">
+                            <li class="flex items-center"><span class="text-green-500 mr-3">✔</span> 全ての基本機能</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-3">✔</span> 複数人での利用・管理機能</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-3">✔</span> 導入サポート・研修</li>
+                             <li class="flex items-center"><span class="text-green-500 mr-3">✔</span> （将来的に）過去問分析機能など</li>
+                        </ul>
+                         <a href="#" class="w-full btn btn-primary">お問い合わせ</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- FAQ Section -->
-        <section id="faq" class="py-20">
+        <section id="faq" class="py-20 bg-white">
             <div class="container mx-auto px-6">
                 <h2 class="section-title">よくあるご質問（FAQ）</h2>
                 <div class="max-w-3xl mx-auto mt-12 bg-white rounded-lg shadow-lg p-6 md:p-8 border">
                     <div class="space-y-4">
                         <div class="border-b pb-4">
                             <div class="faq-question flex justify-between items-center p-4 rounded-md">
-                                <h4 class="font-semibold text-lg">料金はかかりますか？</h4>
+                                <h4 class="font-semibold text-lg">本当に無料で試せますか？</h4>
                                 <span class="transform transition-transform duration-300">▼</span>
                             </div>
                             <div class="faq-answer px-4 text-gray-700">
-                                <p>無料トライアル期間中は一切費用はかかりません。すべての機能を安心してお試しいただけます。トライアル終了後、ご継続を希望される方向けに正式なプランをご案内します。</p>
+                                <p>はい。無料トライアル期間中は一切費用はかかりません。クレジットカードの登録も不要ですので、すべての機能を安心してお試しいただけます。トライアル終了後、自動で課金されることはございません。</p>
                             </div>
                         </div>
                         <div class="border-b pb-4">
